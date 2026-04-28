@@ -17,7 +17,7 @@ export default function AttemptQuiz() {
   const params = useParams();
   const quizId = params.quizId || params.id; 
   
-  // App States: 1=Auth, 1.5=CustomInfo/Password, 2=Instructions, 3=ActiveQuiz, 4=Result
+  // App States
   const [step, setStep] = useState(1);
   const [quizData, setQuizData] = useState(null);
   const [userDetails, setUserDetails] = useState(null);
@@ -34,6 +34,13 @@ export default function AttemptQuiz() {
   const [timeLeft, setTimeLeft] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [result, setResult] = useState(null);
+  
+  // Mobile Palette State
+  const [isPaletteOpen, setIsPaletteOpen] = useState(false);
+
+  // Camera Drag State
+  const [camOffset, setCamOffset] = useState({ x: 0, y: 0 });
+  const draggingInfo = useRef({ isDragging: false, startX: 0, startY: 0, initialOffsetX: 0, initialOffsetY: 0 });
   
   // Anti-Cheat & Monitoring States
   const [modelsLoaded, setModelsLoaded] = useState(false);
@@ -66,13 +73,13 @@ export default function AttemptQuiz() {
   const submitQuiz = useCallback(async () => {
     isQuizActiveRef.current = false; 
     setIsSubmitting(true);
+    setIsPaletteOpen(false);
     
     if (streamRef.current) {
       streamRef.current.getTracks().forEach(t => t.stop());
     }
     try { if (document.fullscreenElement) document.exitFullscreen(); } catch (e) {}
 
-    // FIXED: Ensured we pass back the correct originalIndex and questionId
     const formattedAnswers = quizData.shuffledQuestions.map((q, idx) => ({
       questionId: q._id || q.id, 
       originalIndex: q.originalIndex, 
@@ -133,7 +140,6 @@ export default function AttemptQuiz() {
         const res = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/quizzes/public/${quizId}`);
         const qData = res.data.quiz;
         
-        // FIXED: Hardcode the originalIndex onto the objects before any shuffling occurs
         qData.questions = qData.questions.map((q, idx) => ({
           ...q,
           originalIndex: q.originalIndex !== undefined ? q.originalIndex : idx
@@ -201,11 +207,8 @@ export default function AttemptQuiz() {
         return message; 
       }
     };
-
     window.addEventListener('beforeunload', handleBeforeUnload);
-    return () => {
-      window.removeEventListener('beforeunload', handleBeforeUnload);
-    };
+    return () => window.removeEventListener('beforeunload', handleBeforeUnload);
   }, []);
 
   useEffect(() => {
@@ -241,6 +244,7 @@ export default function AttemptQuiz() {
     }
   }, [step, acConfig.copy, triggerStrike]);
 
+  // Face API Monitor
   useEffect(() => {
     let interval;
     if (step === 3 && acConfig.camera && cameraActive && modelsLoaded) {
@@ -327,6 +331,53 @@ export default function AttemptQuiz() {
     });
   };
 
+  // Camera Drag Handlers
+  const handleCamDragStart = (e) => {
+    draggingInfo.current.isDragging = true;
+    const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+    const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+    
+    draggingInfo.current.startX = clientX;
+    draggingInfo.current.startY = clientY;
+    draggingInfo.current.initialOffsetX = camOffset.x;
+    draggingInfo.current.initialOffsetY = camOffset.y;
+  };
+
+  useEffect(() => {
+    const handleCamDragMove = (e) => {
+      if (!draggingInfo.current.isDragging) return;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+
+      const dx = clientX - draggingInfo.current.startX;
+      const dy = clientY - draggingInfo.current.startY;
+
+      setCamOffset({
+        x: draggingInfo.current.initialOffsetX + dx,
+        y: draggingInfo.current.initialOffsetY + dy
+      });
+    };
+
+    const handleCamDragEnd = () => {
+      draggingInfo.current.isDragging = false;
+    };
+
+    if (step === 3 && acConfig.camera) {
+      document.addEventListener('mousemove', handleCamDragMove);
+      document.addEventListener('mouseup', handleCamDragEnd);
+      document.addEventListener('touchmove', handleCamDragMove, { passive: false });
+      document.addEventListener('touchend', handleCamDragEnd);
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleCamDragMove);
+      document.removeEventListener('mouseup', handleCamDragEnd);
+      document.removeEventListener('touchmove', handleCamDragMove);
+      document.removeEventListener('touchend', handleCamDragEnd);
+    };
+  }, [step, acConfig.camera, camOffset]);
+
+
   if (errorState) {
     return (
       <div className={styles.container}>
@@ -349,6 +400,7 @@ export default function AttemptQuiz() {
   }
 
   const currentQ = quizData.shuffledQuestions[currentQuestionIndex];
+  const isPassed = result ? (result.percentage >= (quizData.passingScore || 0)) : false;
 
   return (
     <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID || "YOUR_CLIENT_ID"}>
@@ -467,20 +519,42 @@ export default function AttemptQuiz() {
             )}
 
             {acConfig.camera && (
-              <div className={styles.webcamContainer}>
+              <div 
+                className={styles.webcamContainer} 
+                style={{ transform: `translate(${camOffset.x}px, ${camOffset.y}px)` }}
+                onMouseDown={handleCamDragStart}
+                onTouchStart={handleCamDragStart}
+              >
                 <video ref={videoRef} autoPlay muted playsInline className={styles.webcamVideo} />
                 <div className={styles.webcamOverlay}>AI Monitoring Active</div>
               </div>
             )}
 
-            <aside className={styles.questionPalette}>
-              <h3>Question Palette</h3>
+            {/* Mobile Toggle Button */}
+            <button className={styles.mobilePaletteBtn} onClick={() => setIsPaletteOpen(true)}>
+              <i className="bi bi-grid-3x3-gap-fill"></i> Questions Palette
+            </button>
+
+            {/* Backdrop for Mobile Overlay */}
+            <div 
+              className={`${styles.paletteBackdrop} ${isPaletteOpen ? styles.open : ''}`} 
+              onClick={() => setIsPaletteOpen(false)} 
+            />
+
+            <aside className={`${styles.questionPalette} ${isPaletteOpen ? styles.open : ''}`}>
+              <div className={styles.paletteHeader}>
+                <h3>Palette</h3>
+                <button className={styles.closePaletteBtn} onClick={() => setIsPaletteOpen(false)}>&times;</button>
+              </div>
               <div className={styles.paletteGrid}>
                 {quizData.shuffledQuestions.map((q, i) => (
                   <button 
                     key={i} 
                     className={`${styles.paletteBtn} ${currentQuestionIndex === i ? styles.active : ''} ${answers[i] && answers[i].length !== 0 ? styles.answered : ''}`}
-                    onClick={() => setCurrentQuestionIndex(i)}
+                    onClick={() => {
+                      setCurrentQuestionIndex(i);
+                      setIsPaletteOpen(false); // Auto close on mobile after selection
+                    }}
                   >
                     {i + 1}
                   </button>
@@ -503,7 +577,6 @@ export default function AttemptQuiz() {
                   {(currentQ.type === 'single' || currentQ.type === 'multiple') && (
                     <div className={styles.optionsList}>
                       {currentQ.options.map((opt, i) => (
-                        // FIXED: Added currentQuestionIndex to the React key to prevent state bleeding during navigation
                         <label key={`${currentQuestionIndex}-${i}`} className={styles.optionLabel}>
                           <input 
                             type={currentQ.type === 'single' ? 'radio' : 'checkbox'} 
@@ -546,8 +619,15 @@ export default function AttemptQuiz() {
             <div className={styles.card} style={{ textAlign: 'center' }}>
               <h1>Submission Received</h1>
               <p className={styles.mutedText}>Your assessment has been successfully recorded.</p>
+              
               <div className={styles.resultPercentage}>{result.percentage}%</div>
               <div className={styles.resultFraction}>{result.obtainedMarks} / {result.totalMarks} Marks</div>
+
+              {quizData.passingScore > 0 && (
+                <div className={`${styles.statusBadge} ${isPassed ? styles.statusPass : styles.statusFail}`}>
+                  {isPassed ? 'Passed' : 'Failed'}
+                </div>
+              )}
             </div>
           </div>
         )}
