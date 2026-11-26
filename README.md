@@ -2,7 +2,7 @@
 
 Quizify lets teachers create quizzes (manually or with AI from a syllabus), share them with a link, and run **proctored online tests** with camera, tab-switch and copy-paste monitoring. This is the frontend of my **B.Tech final-year project** at Government Engineering College, Bilaspur.
 
-- **Live demo:** https://major-frontend-seven.vercel.app
+- **Live demo:** https://major-frontend-sable.vercel.app
 - **Backend repo:** https://github.com/Gaurav-Soni24/major-backend
 
 ## Features
