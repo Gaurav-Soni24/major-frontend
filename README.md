@@ -1,36 +1,56 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Quizify — AI-Powered Assessment Platform (Frontend)
 
-## Getting Started
+Quizify lets teachers create quizzes (manually or with AI from a syllabus), share them with a link, and run **proctored online tests** with camera, tab-switch and copy-paste monitoring. This is the frontend of my **B.Tech final-year project** at Government Engineering College, Bilaspur.
 
-First, run the development server:
+- **Live demo:** https://major-frontend-seven.vercel.app
+- **Backend repo:** https://github.com/Gaurav-Soni24/major-backend
+
+## Features
+
+**For teachers**
+- Register / log in (email + password or Google) and manage quizzes from a dashboard.
+- Create a quiz manually or **generate questions with AI** from a syllabus, difficulty and question counts, and regenerate single questions.
+- Five question types: single choice, multiple choice, text, integer and **code** (in-browser CodeMirror editor).
+- Quiz settings: time limit, passing score, shuffled questions/options, password protection, custom registration fields.
+- Public quiz links, plus a toggle to publish or unpublish a quiz.
+- Submissions list, per-student details with answers, AI feedback and flagged snapshots, and a **PDF report** export.
+
+**For students**
+- Open a quiz link, verify with Google, and attempt the quiz in a timed, distraction-free page.
+
+**Anti-cheating (proctoring)**
+- **AI camera monitoring** with face detection (face-api.js / TensorFlow.js) that records strikes and flags suspicious snapshots.
+- **Tab-switch** and **copy-paste** detection.
+- Configurable strike tolerance with **auto-submit** when the limit is exceeded.
+
+## Tech stack
+
+Next.js (App Router), React, JavaScript, CSS Modules, Chart.js, CodeMirror, face-api.js / TensorFlow.js (BlazeFace), jsPDF, Axios, `@react-oauth/google`.
+
+## Run locally
 
 ```bash
+git clone https://github.com/Gaurav-Soni24/major-frontend.git
+cd major-frontend
+npm install
+cp .env.example .env.local   # then fill in the values
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000. You also need the [backend](https://github.com/Gaurav-Soni24/major-backend) running.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
- 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Environment variables
 
-## Learn More
+| Variable | Description |
+|---|---|
+| `NEXT_PUBLIC_API_URL` | Base URL of the Quizify backend API (for example `http://localhost:5000`) |
+| `NEXT_PUBLIC_GOOGLE_CLIENT_ID` | Google OAuth client ID used for sign-in |
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Deployed on Vercel. Every push to `master` triggers a new deployment.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Related
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Backend: https://github.com/Gaurav-Soni24/major-backend
+- Portfolio: https://gauravsoni.space
