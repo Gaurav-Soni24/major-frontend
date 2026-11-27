@@ -1,0 +1,207 @@
+/* Result: an exam slip, then the marked paper */
+
+.wrap {
+  display: grid;
+  gap: 28px;
+}
+
+.slip {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-top: 2px solid var(--ink);
+  border-radius: 0 0 var(--radius-panel) var(--radius-panel);
+  padding: 24px;
+  display: grid;
+  gap: 16px;
+}
+.kicker {
+  font-size: var(--fs-13);
+  color: var(--ink-2);
+  overflow-wrap: anywhere;
+}
+.slip h1,
+.slip h2 {
+  font-size: var(--fs-22);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.scoreRow {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  padding: 16px 0;
+}
+.score {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: clamp(2.25rem, 8vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1;
+}
+.pct {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-22);
+  color: var(--ink-2);
+}
+.verdict {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-16);
+  font-weight: 700;
+}
+.verdictPass {
+  color: var(--correct);
+}
+.verdictFail {
+  color: var(--wrong);
+}
+.verdict small {
+  font-weight: 400;
+  font-size: var(--fs-14);
+  color: var(--ink-2);
+}
+.meta {
+  font-size: var(--fs-13);
+  color: var(--ink-2);
+}
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.reviewTitle {
+  font-size: var(--fs-18);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.quiet {
+  border: 1px dashed var(--rule-strong);
+  border-radius: var(--radius-panel);
+  padding: 16px 20px;
+  color: var(--ink-2);
+  font-size: var(--fs-14);
+}
+
+.items {
+  list-style: none;
+  padding: 0;
+  border-top: 2px solid var(--ink);
+  background: var(--surface);
+  border-left: 1px solid var(--rule);
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.item {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr) auto;
+  gap: 4px 16px;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--rule);
+}
+.item:last-child {
+  border-bottom: 0;
+}
+.num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-18);
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.qtext {
+  font-family: var(--font-read);
+  font-size: var(--fs-16);
+  line-height: 1.55;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.markCol {
+  display: grid;
+  gap: 6px;
+  justify-items: end;
+  align-content: start;
+  font-family: var(--font-mono);
+  font-size: var(--fs-14);
+  white-space: nowrap;
+}
+.detail {
+  grid-column: 2 / -1;
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+.row {
+  display: grid;
+  grid-template-columns: 120px minmax(0, 1fr);
+  gap: 12px;
+  font-size: var(--fs-14);
+}
+.row dt {
+  color: var(--ink-2);
+}
+.row dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.row pre {
+  margin: 0;
+  padding: 8px 10px;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-control);
+  overflow: auto;
+  white-space: pre-wrap;
+  font-size: var(--fs-13);
+}
+.feedback {
+  font-family: var(--font-read);
+  font-style: italic;
+  color: var(--ink-2);
+}
+.verdictInline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: var(--fs-13);
+}
+.vOk {
+  color: var(--correct);
+}
+.vBad {
+  color: var(--wrong);
+}
+.vPart {
+  color: var(--partial);
+}
+
+@media (max-width: 640px) {
+  .slip {
+    padding: 20px 16px;
+  }
+  .item {
+    grid-template-columns: 36px minmax(0, 1fr);
+    padding: 14px 16px;
+  }
+  .markCol {
+    grid-column: 2;
+    grid-row: 2;
+    justify-items: start;
+    grid-auto-flow: column;
+    justify-content: start;
+    gap: 12px;
+  }
+  .detail {
+    grid-column: 1 / -1;
+  }
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+}

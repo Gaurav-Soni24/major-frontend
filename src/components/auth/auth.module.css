@@ -1,0 +1,84 @@
+.form {
+  display: grid;
+  gap: 18px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: var(--ink-2);
+  font-size: var(--fs-13);
+}
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+.notice {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  padding: 10px 12px;
+  border: 1px solid var(--correct);
+  border-radius: var(--radius-control);
+  background: var(--correct-tint);
+  color: var(--correct);
+  font-weight: 500;
+}
+
+.formError {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border: 1px solid var(--wrong);
+  border-radius: var(--radius-control);
+  background: var(--wrong-tint);
+  color: var(--wrong);
+  font-weight: 500;
+}
+
+.google {
+  min-height: 44px;
+  display: flex;
+  justify-content: center;
+}
+
+.googleOff {
+  display: grid;
+  gap: 6px;
+}
+.googleOffBtn {
+  height: 44px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  font-weight: 600;
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.googleNote {
+  font-size: var(--fs-13);
+  color: var(--ink-2);
+}
+
+.toggle {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 0;
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--ink-2);
+}
+.toggle:hover {
+  background: var(--surface-2);
+  color: var(--ink);
+}

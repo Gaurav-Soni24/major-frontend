@@ -1,0 +1,158 @@
+.page {
+  min-width: 0;
+}
+
+.banners {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.banners:empty {
+  display: none;
+}
+
+.body {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.side {
+  display: none;
+}
+
+.main {
+  min-width: 0;
+  max-width: 720px;
+  display: grid;
+  gap: 16px;
+}
+
+.nudge {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+}
+.nudge p {
+  font-size: var(--fs-14);
+  color: var(--ink-2);
+}
+.nudgeActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* Phone: strip showing the current item; it opens the outline sheet */
+.mobileNav {
+  position: sticky;
+  top: calc(var(--topbar-h) + 64px);
+  z-index: calc(var(--z-sticky) - 1);
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 8px 0;
+  background: var(--paper);
+}
+.navStep,
+.navCurrent {
+  min-height: 44px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  color: var(--ink);
+}
+.navStep {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  flex: none;
+}
+.navStep:disabled {
+  opacity: 0.45;
+}
+.navCurrent {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 12px;
+  text-align: left;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: var(--fs-14);
+}
+.navLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.navType {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--ink-2);
+  font-weight: 500;
+}
+.navAll {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  flex: none;
+  color: var(--primary);
+}
+
+/* loading */
+.skelBar {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.skelList,
+.skelForm {
+  display: grid;
+  gap: 12px;
+  align-content: start;
+}
+.skelList {
+  display: none;
+}
+
+@media (max-width: 559px) {
+  .navType {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .body {
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 32px;
+  }
+  .side {
+    display: block;
+    position: sticky;
+    top: calc(var(--topbar-h) + 80px);
+    max-height: calc(100dvh - var(--topbar-h) - 104px);
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  .mobileNav {
+    display: none;
+  }
+  .skelList {
+    display: grid;
+  }
+}

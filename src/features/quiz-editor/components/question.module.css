@@ -1,0 +1,257 @@
+.panel {
+  min-width: 0;
+  max-width: 720px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--ink);
+}
+.title {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: var(--fs-22);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.number {
+  font-family: var(--font-mono);
+  font-size: var(--fs-18);
+  font-weight: 500;
+  color: var(--primary);
+  font-variant-numeric: tabular-nums;
+}
+.actions {
+  display: flex;
+  gap: 2px;
+  flex: none;
+}
+
+.form {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.type {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  color: var(--ink-2);
+  font-family: var(--font-ui);
+  font-size: var(--fs-13);
+  font-weight: 600;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+.type:hover:not(:disabled) {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+.type:disabled {
+  opacity: 0.45;
+}
+.typeOn,
+.typeOn:hover:not(:disabled) {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+
+.textRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 96px;
+  gap: 12px;
+  align-items: start;
+}
+.grow {
+  min-width: 0;
+}
+.marks input {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+.questionText {
+  font-family: var(--font-read);
+  font-size: var(--fs-16);
+  line-height: 1.55;
+  min-height: 110px;
+}
+.narrow {
+  max-width: 260px;
+}
+
+.legend {
+  padding: 0;
+  font-size: var(--fs-14);
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.options {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.options > button {
+  justify-self: start;
+}
+.optionList {
+  display: grid;
+  gap: 6px;
+}
+.option {
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr) auto;
+  gap: 8px;
+  align-items: start;
+  padding: 6px 4px 6px 8px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+}
+.correct {
+  border-color: var(--correct);
+  background: var(--correct-tint);
+}
+.marker {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.marker::before {
+  content: "";
+  display: block;
+  width: 22px;
+  height: 22px;
+  border: 1.5px solid var(--rule-strong);
+  background: var(--surface);
+  grid-area: 1 / 1;
+}
+.marker > * {
+  grid-area: 1 / 1;
+  z-index: 1;
+}
+.round::before {
+  border-radius: 50%;
+}
+.square::before {
+  border-radius: 4px;
+}
+.marker:hover::before {
+  border-color: var(--correct);
+}
+.markerOn::before {
+  background: var(--correct);
+  border-color: var(--correct);
+}
+.optionField {
+  min-width: 0;
+}
+.optionActions {
+  display: flex;
+  align-items: center;
+  height: 40px;
+}
+.listError {
+  font-size: var(--fs-13);
+  font-weight: 500;
+  color: var(--wrong);
+}
+
+.codeBlock {
+  display: grid;
+  gap: 14px;
+}
+.starter {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+.codeWrap {
+  overflow: hidden;
+  border: 1px solid var(--rule-strong);
+  border-radius: var(--radius-control);
+  font-size: var(--fs-13);
+}
+.codeWrap :global(.cm-editor) {
+  font-family: var(--font-mono);
+}
+.codeWrap :global(.cm-editor.cm-focused) {
+  outline: 2px solid var(--focus);
+  outline-offset: 1px;
+}
+.codeInvalid {
+  border-color: var(--wrong);
+}
+
+.refs {
+  display: grid;
+  gap: 16px;
+}
+
+.regen {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+}
+.regenHint {
+  flex: 1;
+  min-width: 200px;
+  font-size: var(--fs-13);
+  color: var(--ink-2);
+}
+
+.lostLabel {
+  font-size: var(--fs-14);
+  font-weight: 600;
+}
+.lostList {
+  margin: 6px 0 0;
+  padding-left: 18px;
+  font-size: var(--fs-14);
+  color: var(--ink-2);
+}
+
+@media (max-width: 560px) {
+  .textRow {
+    grid-template-columns: 1fr;
+  }
+  .marks {
+    max-width: 120px;
+  }
+  .optionActions :nth-child(1),
+  .optionActions :nth-child(2) {
+    display: none;
+  }
+}

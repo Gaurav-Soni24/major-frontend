@@ -1,0 +1,108 @@
+.page {
+  display: grid;
+  gap: 24px;
+  max-width: 720px;
+}
+.skel {
+  display: grid;
+  gap: 16px;
+}
+.fields {
+  display: grid;
+  gap: 16px;
+}
+.two {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.account {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+.account div {
+  display: grid;
+  gap: 2px;
+}
+.account dt {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.account dd {
+  margin: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.note {
+  margin: 12px 0 0;
+  font-size: var(--fs-13);
+  color: var(--ink-2);
+}
+
+.formError {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  margin: 0;
+  color: var(--wrong);
+  font-weight: 500;
+}
+
+/* Save bar: only when dirty, sticks to the bottom of the viewport while the form is on screen */
+.saveBar {
+  display: none;
+  position: sticky;
+  bottom: 0;
+  z-index: var(--z-sticky);
+  margin: 20px -20px -20px;
+  padding: 12px 20px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  background: var(--surface);
+  border-top: 4px double var(--rule-strong);
+  border-radius: 0 0 var(--radius-panel) var(--radius-panel);
+}
+.saveBar[data-visible] {
+  display: flex;
+}
+.dirty {
+  font-weight: 600;
+}
+.barActions {
+  display: inline-flex;
+  gap: 8px;
+}
+
+.meter {
+  display: flex;
+  gap: 4px;
+  margin-top: -8px;
+}
+.meter span {
+  flex: 1;
+  height: 3px;
+  background: var(--rule);
+  border-radius: 1px;
+}
+.meter span[data-level="1"] {
+  background: var(--wrong);
+}
+.meter span[data-level="2"] {
+  background: var(--partial);
+}
+.meter span[data-level="3"] {
+  background: var(--correct);
+}
+
+@media (min-width: 640px) {
+  .two {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

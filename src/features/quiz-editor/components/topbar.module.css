@@ -1,0 +1,131 @@
+.bar {
+  position: sticky;
+  top: var(--topbar-h);
+  z-index: var(--z-sticky);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  box-sizing: border-box;
+  height: 64px;
+  margin: -24px -16px 16px;
+  padding: 0 16px;
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.back {
+  flex: none;
+  margin-left: -8px;
+}
+.titleBlock {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+.titleLine {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.title {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--fs-16);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+.status {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--fs-12);
+  color: var(--ink-2);
+}
+.dirty {
+  color: var(--partial);
+  font-weight: 600;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+}
+.history {
+  display: flex;
+  gap: 2px;
+}
+.wide {
+  display: none;
+}
+.narrowOnly {
+  display: block;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  font-family: var(--font-ui);
+  font-size: var(--fs-13);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.bad {
+  background: var(--partial-tint);
+  color: var(--partial);
+  border-color: var(--partial);
+  cursor: pointer;
+}
+.good {
+  background: var(--correct-tint);
+  color: var(--correct);
+}
+
+@media (max-width: 719px) {
+  .save span {
+    display: none;
+  }
+  .save {
+    width: 32px;
+    padding: 0;
+  }
+  .back span {
+    display: none;
+  }
+  .back {
+    width: 32px;
+    padding: 0;
+  }
+  .titleLine > span:last-child {
+    display: none;
+  }
+}
+
+@media (min-width: 900px) {
+  .wide {
+    display: inline-flex;
+  }
+  .narrowOnly {
+    display: none;
+  }
+  .bar {
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+}

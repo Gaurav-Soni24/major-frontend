@@ -1,0 +1,24 @@
+.block {
+  display: block;
+  border-radius: var(--radius-control);
+  background: var(--surface-2);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+.text {
+  display: grid;
+  gap: 8px;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .block {
+    animation: none !important;
+  }
+}

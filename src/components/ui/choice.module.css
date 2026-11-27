@@ -1,0 +1,183 @@
+/* Checkbox, Radio, AnswerOption share this file */
+
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+}
+
+/* --- plain checkbox / radio rows --- */
+.row {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 10px;
+  min-height: 24px;
+  cursor: pointer;
+  font-size: var(--fs-14);
+  color: var(--ink);
+}
+
+.box {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  margin-top: 1px;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--rule-strong);
+  background: var(--surface);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+.square,
+.checkbox {
+  border-radius: var(--radius-control);
+}
+.round {
+  border-radius: 50%;
+}
+.box svg {
+  opacity: 0;
+}
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--primary);
+  transform: scale(0);
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.row:hover .box {
+  border-color: var(--ink-2);
+}
+.input:checked + .checkbox {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+.input:checked + .checkbox svg {
+  opacity: 1;
+}
+.input:checked + .round {
+  border-color: var(--primary);
+}
+.input:checked + .round .dot {
+  transform: scale(1);
+}
+.input:focus-visible + .box,
+.input:focus-visible + .bubble {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.input:disabled + .box {
+  opacity: 0.45;
+}
+.row:has(.input:disabled) {
+  cursor: not-allowed;
+  color: var(--ink-2);
+}
+
+.text {
+  display: grid;
+  gap: 2px;
+}
+.hint {
+  font-size: var(--fs-13);
+  color: var(--ink-2);
+}
+
+/* --- answer option (player + review) --- */
+.answer {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-height: 48px;
+  padding: 12px 14px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-control);
+  background: var(--surface);
+  cursor: pointer;
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+.answer:hover {
+  background: var(--surface-2);
+}
+.answer:has(.input:checked) {
+  border-color: var(--primary);
+  background: var(--primary-tint);
+}
+.answer:has(.input:focus-visible) {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+.answer:has(.input:disabled) {
+  cursor: default;
+}
+
+.bubble {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  margin-top: 0;
+  display: grid;
+  place-items: center;
+  border: 1.5px solid var(--rule-strong);
+  background: var(--surface);
+}
+.bubbleTick {
+  opacity: 0;
+}
+.input:checked + .bubble {
+  border-color: var(--primary);
+}
+.input:checked + .bubble .bubbleTick {
+  opacity: 1;
+}
+
+.answerText {
+  flex: 1;
+  min-width: 0;
+  font-family: var(--font-read);
+  font-size: var(--fs-16);
+  line-height: 1.5;
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+
+.stateLabel {
+  flex: none;
+  align-self: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.state_correct {
+  border-color: var(--correct);
+  background: var(--correct-tint);
+}
+.state_correct .stateLabel {
+  color: var(--correct);
+}
+.state_wrong {
+  border-color: var(--wrong);
+  background: var(--wrong-tint);
+}
+.state_wrong .stateLabel {
+  color: var(--wrong);
+}
+.state_missed {
+  border-color: var(--correct);
+  border-style: dashed;
+}
+.state_missed .stateLabel {
+  color: var(--correct);
+}

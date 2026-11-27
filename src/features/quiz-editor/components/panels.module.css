@@ -1,0 +1,127 @@
+.panel {
+  min-width: 0;
+  max-width: 720px;
+}
+
+.panelHead {
+  display: grid;
+  gap: 4px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--ink);
+}
+.panelTitle {
+  font-size: var(--fs-22);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+}
+.panelHint {
+  font-size: var(--fs-13);
+  color: var(--ink-2);
+}
+
+.stack {
+  display: grid;
+  gap: 24px;
+}
+
+.group {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+  margin: 0;
+  padding: 0 0 24px;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+}
+.group > button,
+.group > a,
+.subgroup > button {
+  justify-self: start;
+}
+.group:last-child {
+  border-bottom: 0;
+}
+.legend {
+  padding: 0;
+  margin-bottom: 2px;
+  font-size: var(--fs-16);
+  font-weight: 700;
+  letter-spacing: -0.005em;
+}
+
+.narrow {
+  max-width: 220px;
+}
+
+.rows {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.instructionRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 4px;
+  align-items: start;
+}
+.fieldRow {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 110px auto;
+  gap: 8px;
+  align-items: start;
+}
+
+.inlineError {
+  font-size: var(--fs-13);
+  font-weight: 500;
+  color: var(--wrong);
+}
+
+.inlineActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.passwordState {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-panel);
+  background: var(--surface);
+  font-size: var(--fs-14);
+}
+.passwordState p {
+  color: var(--ink-2);
+}
+.passwordState strong {
+  color: var(--ink);
+}
+
+.subgroup {
+  display: grid;
+  gap: 10px;
+  padding-top: 8px;
+}
+.subTitle {
+  font-size: var(--fs-14);
+  font-weight: 700;
+}
+
+@media (max-width: 560px) {
+  .fieldRow {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .fieldRow > :nth-child(2) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}

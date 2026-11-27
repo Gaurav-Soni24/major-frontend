@@ -1,0 +1,119 @@
+.sheet {
+  display: grid;
+  gap: 20px;
+  padding-bottom: 8px;
+}
+.banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--fs-13);
+  color: var(--ink-2);
+}
+.top {
+  display: grid;
+  gap: 8px;
+  padding-bottom: 14px;
+  border-bottom: 2px solid var(--ink);
+}
+.title {
+  font-size: var(--fs-28);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.desc {
+  font-family: var(--font-read);
+  font-size: var(--fs-16);
+  color: var(--ink-2);
+  max-width: 66ch;
+}
+.meta {
+  font-size: var(--fs-13);
+  color: var(--ink-2);
+}
+.note {
+  font-size: var(--fs-13);
+  color: var(--ink-2);
+  font-style: italic;
+}
+.instructions {
+  padding: 12px 16px;
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-panel);
+  background: var(--paper);
+}
+.instructions h4 {
+  font-size: var(--fs-14);
+  margin-bottom: 6px;
+}
+.instructions ul {
+  margin: 0;
+  padding-left: 18px;
+  font-family: var(--font-read);
+  font-size: var(--fs-14);
+}
+.empty {
+  color: var(--ink-2);
+}
+.questions {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.question {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 12px;
+  padding: 18px 0;
+  border-top: 1px solid var(--rule);
+}
+.margin {
+  display: grid;
+  align-content: start;
+  gap: 4px;
+  font-size: var(--fs-13);
+}
+.num {
+  font-family: var(--font-mono);
+  font-size: var(--fs-16);
+  font-weight: 500;
+}
+.badMarks {
+  font-family: var(--font-mono);
+  color: var(--wrong);
+}
+.body {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+.text {
+  font-family: var(--font-read);
+  font-size: var(--fs-16);
+  line-height: 1.6;
+  max-width: 66ch;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.options {
+  display: grid;
+  gap: 8px;
+}
+.numeric {
+  max-width: 240px;
+}
+
+@media (max-width: 560px) {
+  .question {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .margin {
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+}

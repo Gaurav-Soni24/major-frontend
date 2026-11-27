@@ -1,0 +1,8 @@
+.mark {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 500;
+  font-size: var(--fs-13);
+  color: var(--ink-2);
+  white-space: nowrap;
+}

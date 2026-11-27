@@ -1,0 +1,204 @@
+.outline {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-panel);
+  overflow: hidden;
+}
+
+.fixed,
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.fixed li + li {
+  border-top: 1px solid var(--rule);
+}
+
+.listHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 10px 14px;
+  border-top: 1px solid var(--rule-strong);
+  border-bottom: 1px solid var(--rule);
+  background: var(--surface-2);
+}
+.heading {
+  font-size: var(--fs-13);
+  font-weight: 700;
+}
+.count {
+  font-size: var(--fs-12);
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.empty {
+  padding: 16px 14px;
+  font-size: var(--fs-13);
+  color: var(--ink-2);
+}
+
+.row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  border-top: 1px solid var(--rule);
+  background: var(--surface);
+}
+.row:first-child {
+  border-top: 0;
+}
+.dragging {
+  opacity: 0.45;
+}
+.dropBefore::before,
+.dropAfter::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--primary);
+  z-index: 2;
+}
+.dropBefore::before {
+  top: -1px;
+}
+.dropAfter::after {
+  bottom: -1px;
+}
+
+.grip {
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: transparent;
+  color: var(--ink-3);
+  cursor: grab;
+}
+.grip:hover:not(:disabled) {
+  color: var(--ink);
+  background: var(--surface-2);
+}
+.grip:disabled {
+  cursor: default;
+  opacity: 0.35;
+}
+.grip:active {
+  cursor: grabbing;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 52px;
+  padding: 8px 12px 8px 2px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+  font-family: var(--font-ui);
+  transition: background-color var(--dur-fast) var(--ease);
+}
+.item:hover {
+  background: var(--surface-2);
+}
+.plain {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  padding-left: 14px;
+}
+.current,
+.current:hover {
+  background: var(--primary-tint);
+}
+.current .num,
+.current .name {
+  color: var(--primary);
+}
+
+.icon {
+  display: grid;
+  place-items: center;
+  color: var(--ink-2);
+}
+.num {
+  width: 22px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-12);
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+}
+.main {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.name {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  font-size: var(--fs-14);
+  font-weight: 600;
+  line-height: 1.3;
+}
+.untitled {
+  color: var(--ink-2);
+  font-weight: 500;
+  font-style: italic;
+}
+.sub {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: var(--fs-12);
+  color: var(--ink-2);
+}
+.marks {
+  font-size: var(--fs-12);
+}
+
+.dot {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+}
+.good {
+  color: var(--correct);
+  opacity: 0.6;
+}
+.bad {
+  color: var(--partial);
+}
+
+.add {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px 14px;
+  border-top: 1px solid var(--rule-strong);
+  background: var(--surface);
+}
+.add .addTrigger {
+  height: 40px;
+  padding: 0 14px;
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #fff;
+}
+.add .addTrigger:hover,
+.add .addTrigger[aria-expanded="true"] {
+  background: var(--primary-hover);
+}

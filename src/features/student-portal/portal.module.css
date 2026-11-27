@@ -1,0 +1,112 @@
+.title {
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+}
+.lede {
+  margin-top: 6px;
+  color: var(--ink-2);
+  font-size: var(--fs-16);
+  max-width: 60ch;
+}
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+}
+.box {
+  background: var(--surface);
+  border-top: 2px solid var(--ink);
+  border-left: 1px solid var(--rule);
+  border-right: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.ledger {
+  list-style: none;
+  padding: 0;
+}
+.colHead,
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 130px 110px 110px 132px;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 20px;
+}
+.colHead {
+  font-size: var(--fs-12);
+  font-weight: 600;
+  color: var(--ink-2);
+  border-bottom: 3px double var(--rule-strong);
+  background: var(--paper);
+}
+.row {
+  border-bottom: 1px solid var(--rule);
+  min-height: 64px;
+}
+.row:last-child {
+  border-bottom: 0;
+}
+.row > :nth-child(4) {
+  justify-self: start;
+}
+.qTitle {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+.sub {
+  font-size: var(--fs-13);
+  color: var(--ink-2);
+}
+.score {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--fs-16);
+}
+.pct {
+  font-size: var(--fs-13);
+  color: var(--ink-2);
+  display: block;
+}
+.date {
+  font-size: var(--fs-13);
+  color: var(--ink-2);
+}
+.cellLabel {
+  display: none;
+}
+
+@media (max-width: 760px) {
+  .colHead {
+    display: none;
+  }
+  .row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas:
+      "title badge"
+      "date score"
+      "action action";
+    gap: 6px 12px;
+    padding: 14px 16px;
+  }
+  .row > :nth-child(1) {
+    grid-area: title;
+  }
+  .row > :nth-child(2) {
+    grid-area: date;
+  }
+  .row > :nth-child(3) {
+    grid-area: score;
+    text-align: right;
+  }
+  .row > :nth-child(4) {
+    grid-area: badge;
+    justify-self: end;
+  }
+  .row > :nth-child(5) {
+    grid-area: action;
+  }
+}
